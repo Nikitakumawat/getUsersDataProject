@@ -1,25 +1,30 @@
-.container-fluid{
-  background-color: rgb(200, 218, 252);
-}
-.navbar{
-  display: flex;
-  justify-content: space-between;
-  background-color: black;
-  color: white;
-  text-transform: capitalize;
-  width: 100vw;
-  
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto&display=swap');
+*{
+  margin: 0;
+  padding: 0;
 }
 .heading{
-  font-size: 25px;
-  margin: 2px;
+  font-size: 25px !important;
+  text-align: center !important;
+  font-family: 'Roboto', sans-serif !important;
 }
-button{
-  border-radius: 7px;
-  padding: 2px;
-  margin: 2px;
-  font-size:15px;
-  background-color: darkgrey;
-  color: black;
+ .btn{
+  font-size: 12px !important;
+  border-radius: 5px solid black!important;
+  font-family: 'Poppins', sans-serif !important;
+} 
 
+.loadingDiv{
+  position: absolute;
+  left: 45%;
+  top: 47%;
+}
+li{
+  list-style: none;
+  font-family: 'Poppins', sans-serif;
+}
+.wrapper{
+  align-items: center !important;
+  margin: 25px !important;
+  padding: 35px !important;
 }

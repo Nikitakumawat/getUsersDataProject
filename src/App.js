@@ -1,77 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Card } from "react-bootstrap";
+import Loading from "./Loading";
 
- const baseURL = "https://reqres.in/api/users?page=1";
-//const baseURL = "https://jsonplaceholder.typicode.com/albums/1/photos";
+const baseURL = "https://reqres.in/api/users?page=1";
 
-function App() {
-  const [post, setPost] = useState();
-  const [id, setId] = useState();
-  const [email, setEmail] = useState();
-  const [first_name, setFirst_name] = useState();
-  const [last_name, setLast_name] = useState();
-  const [avatar, setAvatar] =  useState();
-  
-
-  useEffect(() => {
-    const getData = async ()=> {
+const App = () => {
+  const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const getData = async () => {
+    setLoading(true);
+    try {
       const res = await axios.get(baseURL);
-      console.log(res.data);
-      res.data.then((data)=>{setPost(data)})
-      console.log(res.data.id);
-      setId(res.data.id);
-      setEmail(res.data.email);
-      setAvatar(res.data.avatar);
-      setFirst_name(res.data.first_name);
-      setLast_name(res.data.last_name);
-      
+      const data = res.data.data;
+      console.log(data);
+      console.log(res.data.data[0].id);
+      setPost(data);
+      setLoading(false);
+    } catch (error) {
+      console.log("my error is" + error);
+      setLoading(false);
     }
-    getData();
-  },[]);
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
-    
-       <nav className="navbar">
-        <p className="heading">Microsoft</p>
-        <button>Get Users</button>
-      </nav> 
-
-      {/* <div className="container-fluid mt-5">
-        <div className="row text-center">
-          {post.map((curElem) => { 
-            return (
-              <div className="col-10 col-md-4 mt-5" key={curElem.id}>
-                <div className="card p-2">
-                  <div className="d-flex align-items-center">
-                    <div className="image">
-                      <img
-                        src={curElem.avatar}
-                        className="rounded"
-                        width="155"
-                        alt="img"
-                      />
-                    </div>
-                    <div className="ml-3 w-100">
-                      <h4 className="mb-0 mt-0 textLeft">
-                        {curElem.first_name}
-                      </h4>
-                      <span className="textLeft">{curElem.last_name}</span>
-                      <div className="p-2 mt-2 bg-dark d-flex justify-content-between rounded text-white stats">
-                        <div>
-                          <span className="number1">{curElem.email}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-           })} 
+      <nav className="navbar navbar-light bg-light">
+        <div className="container-fluid ">
+          <div className="heading">Microsoft</div>
+          <form className="d-flex">
+            <button
+              className="btn btn-get-users btn-dark btn-outline-light"
+              onClick={getData}
+            >
+              Get Users
+            </button>
+          </form>
         </div>
-      </div>  */}
-
+      </nav>
+      <div className="app container-fluid mt-5 ">
+        <div className="wrapper row text-center">
+          {post.map((e) => (
+            <>
+              <div className="cards  col-10 col-sm-4 col-md-4 col-lg-4 mt-5 ml-10">
+                <Card style={{ width: "18rem" }}>
+                  <Card.Img variant="top" src={e.avatar} />
+                  <Card.Body>
+                    <Card.Title>
+                      {e.id + " " + e.first_name + " " + e.last_name}
+                    </Card.Title>
+                    <Card.Text>
+                      <li>{e.email}</li>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </div>
+            </>
+          ))}
+        </div>
+      </div>
     </>
   );
-}
+};
 
 export default App;
