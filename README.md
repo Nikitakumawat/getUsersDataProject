@@ -1,6 +1,6 @@
 # GET USERS DATA THROUGH API
 
-# DESSCRIPTION
+# DESCRIPTION
 
 This project fetches data of users through an API and displays users information like images, id , firstname , lastname and email of users in a grid format.
 Technologies used are HTML , CSS , Bootstrap and ReactJS . I used HTML tags for rendering elements , CSS and Bootstrap for styling , ReactJS for fetching data and rendering cards grid of employees .
